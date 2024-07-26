@@ -6,7 +6,7 @@ import PrismLight from "./src/utils/prismLight";
 import PrismDark from "./src/utils/prismDark";
 
 const config: Config = {
-  title: "${MAIN_TITLE}",
+  title: "React.js 예제로 쉽게 배우기",
   // tagline: "Dinosaurs are cool",
   // favicon: "img/favicon.ico",
 
@@ -19,7 +19,7 @@ const config: Config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "", // Usually your GitHub org/user name.
-  projectName: "${PROJECT_NAME}", // Usually your repo name.
+  projectName: "DocuBook", // Usually your repo name.
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
