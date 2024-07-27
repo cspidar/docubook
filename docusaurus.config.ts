@@ -19,7 +19,7 @@ const config: Config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "cspidar", // Usually your GitHub org/user name.
-  projectName: "docubook", // Usually your repo name.
+  projectName: "docubook-react", // Usually your repo name.
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
