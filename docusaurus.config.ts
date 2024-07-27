@@ -5,8 +5,10 @@ import type * as Preset from "@docusaurus/preset-classic";
 import PrismLight from "./src/utils/prismLight";
 import PrismDark from "./src/utils/prismDark";
 
+const title: string = "React.js 예제로 쉽게 배우기";
+
 const config: Config = {
-  title: "React.js 예제로 쉽게 배우기",
+  title: title,
   // tagline: "Dinosaurs are cool",
   // favicon: "img/favicon.ico",
 
@@ -69,7 +71,7 @@ const config: Config = {
     // Replace with your project's social card
     image: "img/docusaurus-social-card.jpg",
     navbar: {
-      title: "${NAV_TITLE}",
+      title: title,
       logo: {
         alt: "My Site Logo",
         src: "img/logo.svg",
