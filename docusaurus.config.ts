@@ -6,22 +6,24 @@ import PrismLight from "./src/utils/prismLight";
 import PrismDark from "./src/utils/prismDark";
 
 const title: string = "React.js 예제로 쉽게 배우기";
+const language: string = "ko";
 
 const config: Config = {
   title: title,
-  // tagline: "Dinosaurs are cool",
-  // favicon: "img/favicon.ico",
+  tagline: "React를 친절한 단계별 설명과 예제로 쉽게 배울 수 있습니다.",
+  favicon: "img/favicon.png",
 
   // Set the production url of your site here
-  url: "https://your-docusaurus-site.example.com",
+  url: "https://cspidar.github.io/",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: "/docubook-react/",
+  baseUrl: "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: "cspidar", // Usually your GitHub org/user name.
   projectName: "docubook-react", // Usually your repo name.
+  trailingSlash: false,
 
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
@@ -30,16 +32,54 @@ const config: Config = {
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: "ko",
-    locales: ["ko", "en"],
+    defaultLocale: language,
+    locales: [language],
   },
+
+  // themes: [
+  //   [
+  //     require.resolve("@easyops-cn/docusaurus-search-local"),
+  //     /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+  //     {
+  //       indexBlog: false,
+  //       hashed: true,
+  //       language: ["en", language],
+  //     },
+  //   ],
+  // ],
+
+  plugins: [
+    // [
+    //   "@easyops-cn/docusaurus-search-local",
+    //   {
+    //     indexBlog: false,
+    //     hashed: true,
+    //     language: ["en", language],
+    //   },
+    // ],
+    [
+      "@docusaurus/plugin-client-redirects",
+      {
+        // fromExtensions: ["html", "htm"], // /myPage.html -> /myPage
+        // toExtensions: ["exe", "zip"], // /myAsset -> /myAsset.zip (if latter exists)
+        redirects: [
+          {
+            to: "/",
+            from: "/docubook-react",
+          },
+        ],
+      },
+    ],
+  ],
 
   presets: [
     [
       "classic",
       {
+        // pages: false,
         docs: {
           routeBasePath: "/", // Serve the docs at the site's root
+          // sidebarPath: undefined,
           sidebarPath: "./sidebars.ts",
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
@@ -53,51 +93,36 @@ const config: Config = {
     ],
   ],
 
-  // plugins: [
-  //   [
-  //     "@docusaurus/plugin-client-redirects",
-  //     {
-  //       redirects: [
-  //         {
-  //           to: "/docs/specific-page", // 리디렉션할 대상 경로
-  //           from: "/", // 루트 경로
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // ],
-
   themeConfig: {
     // Replace with your project's social card
-    image: "img/docusaurus-social-card.jpg",
+    image: "https://cspidar.github.io/img/social.png",
+    colorMode: {
+      defaultMode: "dark", // 기본 모드를 다크 모드로 설정
+    },
+    docs: {
+      sidebar: {
+        hideable: true,
+      },
+    },
     navbar: {
       title: title,
+      // hideOnScroll: false,
       logo: {
-        alt: "My Site",
-        src: "img/logo.svg",
+        alt: "LEE React.js",
+        src: "img/logo.png",
+        width: 32,
+        height: 32,
       },
       // items: [
       //   {
-      //     type: "docSidebar",
-      //     sidebarId: "tutorialSidebar",
-      //     position: "left",
-      //     label: "Features",
+      //     // type: "default",
+      //     to: "/",
+      //     label: " ",
       //   },
       // ],
     },
     footer: {
       style: "dark",
-      // links: [
-      //   {
-      //     title: "More",
-      //     items: [
-      //       {
-      //         label: "GitHub",
-      //         href: "https://github.com/facebook/docusaurus",
-      //       },
-      //     ],
-      //   },
-      // ],
     },
     prism: {
       theme: PrismLight,

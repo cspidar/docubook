@@ -40,7 +40,11 @@ $ GIT_USER=<Your GitHub username> yarn deploy
 
 If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
 
-### Build & Deploy
+### DEV & Build & Deploy
+
+```bash
+npm start
+```
 
 ```bash
 ./deploy.sh
@@ -50,7 +54,17 @@ If you are using GitHub pages for hosting, this command is a convenient way to b
 cd build
 git init
 git cmp '1'
-git remote add origin https://github.com/cspidar/docubook-react.git
+git remote add origin https://github.com/cspidar/cspidar.github.io.git
 git push --set-upstream origin master --force
 cd ..
 ```
+
+### TITLE
+
+
+
+### URL
+
+https://cspidar.github.io/
+
+www.docubook-react.great-site.net
