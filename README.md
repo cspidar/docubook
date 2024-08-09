@@ -40,15 +40,19 @@ $ GIT_USER=<Your GitHub username> yarn deploy
 
 If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
 
-### DEV & Build & Deploy
+### DEV
 
 ```bash
 npm start
 ```
 
+### Build & Deploy
+
 ```bash
 ./deploy.sh
 ```
+
+#### Script
 
 ```bash
 cd build
@@ -63,8 +67,10 @@ cd ..
 
 
 
-### URL
 
-https://cspidar.github.io/
+### Deploy URL
 
-www.docubook-react.great-site.net
+- repo: https://github.com/cspidar/cspidar.github.io
+- site: https://cspidar.github.io/
+
+### 영문 배포 후부터 레포 분리 예정
