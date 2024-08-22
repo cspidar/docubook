@@ -8,7 +8,7 @@ import PrismDark from "./src/utils/prismDark";
 const language: string = "en";
 const title: string = "React.js: Learn Easily with Examples";
 const tagline: string = "LEE React.js";
-const repoURL: string = "https://github.com/docureacten/docureacten.github.io";
+const siteURL: string = "https://docureacten.github.io"; // like "https://docureacten.github.io";
 const githubID: string = "docureacten";
 
 const config: Config = {
@@ -17,7 +17,7 @@ const config: Config = {
   favicon: "img/favicon.png",
 
   // Set the production url of your site here
-  url: repoURL,
+  url: siteURL,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
