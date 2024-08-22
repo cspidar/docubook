@@ -133,7 +133,7 @@ const config: Config = {
       theme: PrismLight,
       darkTheme: PrismDark,
       // 프리즘 테마 지원 언어 추가 (언어 목록: https://prismjs.com/download.html#themes=prism)
-      additionalLanguages: ["http", "bash", "diff", "json"],
+      additionalLanguages: ["http", "bash", "diff", "json", "jsx", "css"],
     },
   } satisfies Preset.ThemeConfig,
 };

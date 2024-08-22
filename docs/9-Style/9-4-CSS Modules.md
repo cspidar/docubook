@@ -1,3 +1,4 @@
+
 # CSS Modules
 
 CSS Modules offer a way to write modular and reusable CSS that is scoped locally to individual components in a React application. This approach helps avoid the common problem of global scope in CSS, where styles can inadvertently affect elements that they were not intended for. In this section, we'll explore how to use CSS Modules effectively in your React projects.
@@ -10,86 +11,86 @@ CSS Modules are CSS files where all class and animation names are scoped locally
 
 Let's start by creating a simple CSS Module and using it in a React component.
 
-1. **Create a CSS Module File:**
+### 1. Create a CSS Module File
 
-   First, create a CSS file with the extension `.module.css`. For example, let's create a file named `Button.module.css`.
+First, create a CSS file with the extension `.module.css`. For example, let's create a file named `Button.module.css`.
 
-   ```css
-   /* Button.module.css */
-   .button {
-     background-color: #4CAF50; /* Green */
-     border: none;
-     color: white;
-     padding: 15px 32px;
-     text-align: center;
-     text-decoration: none;
-     display: inline-block;
-     font-size: 16px;
-     margin: 4px 2px;
-     cursor: pointer;
-     border-radius: 4px;
-   }
+```css
+/* Button.module.css */
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
 
-   .primary {
-     background-color: #008CBA; /* Blue */
-   }
-   ```
+.primary {
+  background-color: #008CBA; /* Blue */
+}
+```
 
-2. **Import the CSS Module in a React Component:**
+### 2. Import the CSS Module in a React Component
 
-   Next, import this CSS Module into your React component and apply the styles.
+Next, import this CSS Module into your React component and apply the styles.
 
-   ```jsx
-   import React from 'react';
-   import styles from './Button.module.css'; // Import the CSS Module
+```jsx
+import React from 'react';
+import styles from './Button.module.css'; // Import the CSS Module
 
-   const Button = ({ label, primary }) => {
-     return (
-       <button className={`${styles.button} ${primary ? styles.primary : ''}`}>
-         {label}
-       </button>
-     );
-   };
+const Button = ({ label, primary }) => {
+  return (
+    <button className={`${styles.button} ${primary ? styles.primary : ''}`}>
+      {label}
+    </button>
+  );
+};
 
-   export default Button;
-   ```
+export default Button;
+```
 
-   **Explanation:**
+**Explanation:**
 
-   - `import styles from './Button.module.css';`: This line imports the CSS Module. The `styles` object contains the CSS classes defined in the `Button.module.css` file, with class names transformed into unique identifiers.
-   - `className={`${styles.button} ${primary ? styles.primary : ''}`}`: This line dynamically applies the `button` class and conditionally applies the `primary` class if the `primary` prop is true. The class names are accessed via the `styles` object.
+- `import styles from './Button.module.css';`: This line imports the CSS Module. The `styles` object contains the CSS classes defined in the `Button.module.css` file, with class names transformed into unique identifiers.
+- `className={${styles.button} ${primary ? styles.primary : ''}}`: This line dynamically applies the `button` class and conditionally applies the `primary` class if the `primary` prop is true. The class names are accessed via the `styles` object.
 
-3. **Using the Component:**
+### 3. Using the Component
 
-   Now, you can use the `Button` component in your application.
+Now, you can use the `Button` component in your application.
 
-   ```jsx
-   import React from 'react';
-   import Button from './Button';
+```jsx
+import React from 'react';
+import Button from './Button';
 
-   const App = () => {
-     return (
-       <div>
-         <Button label="Default Button" />
-         <Button label="Primary Button" primary />
-       </div>
-     );
-   };
+const App = () => {
+  return (
+    <div>
+      <Button label="Default Button" />
+      <Button label="Primary Button" primary />
+    </div>
+  );
+};
 
-   export default App;
-   ```
+export default App;
+```
 
-   **Result:**
-   - The first button will use the default green style.
-   - The second button will apply the `primary` style, making it blue.
+**Result:**
+- The first button will use the default green style.
+- The second button will apply the `primary` style, making it blue.
 
-### Key Benefits of CSS Modules
+## Key Benefits of CSS Modules
 
 - **Scoped Styles:** Since the styles are scoped to the component, you avoid issues with global styles conflicting or overriding each other.
 - **Unique Class Names:** The automatic generation of unique class names prevents naming collisions, even if two different components use the same class names.
 - **Reusability:** CSS Modules promote reusability of styles within a component without worrying about global scope.
 
-### Points to Watch Out For
+## Points to Watch Out For
 
 - **No Global Styles:** If you need styles to be global (e.g., for theming or common layout purposes), you should handle those separately in traditional CSS files or use another method such as CSS-in-JS.
 - **Learning Curve:** For those accustomed to traditional CSS, understanding the local scoping and unique class name generation in CSS Modules might take some adjustment.
