@@ -5,11 +5,11 @@ import type * as Preset from "@docusaurus/preset-classic";
 import PrismLight from "./src/utils/prismLight";
 import PrismDark from "./src/utils/prismDark";
 
-const language: string = "ko";
-const title: string = "TITLE";
-const tagline: string = "DESCRIPTION";
-const repoURL: string = "";
-const githubID: string = "ID";
+const language: string = "en";
+const title: string = "React.js: Learn Easily with Examples";
+const tagline: string = "LEE React.js";
+const repoURL: string = "https://github.com/docureacten/docureacten.github.io";
+const githubID: string = "docureacten";
 
 const config: Config = {
   title: title,
