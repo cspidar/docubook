@@ -12,7 +12,7 @@ git add . || { echo "Failed to add files to git"; exit 1; }
 git commit -m '1' || { echo "Failed to commit changes"; exit 1; }
 
 # Step 4: Add remote repository
-git remote add origin https://github.com/cspidar/docubook-react.git || { echo "Failed to add remote repository"; exit 1; }
+git remote add origin ${REPO_URL} || { echo "Failed to add remote repository. change REPO_URL"; exit 1; }
 
 # Step 5: Push changes to remote repository
 git push --set-upstream origin master --force || { echo "Failed to push changes"; exit 1; }
