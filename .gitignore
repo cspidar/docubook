@@ -20,3 +20,6 @@ yarn-debug.log*
 yarn-error.log*
 
 deploy.sh
+
+# 인덱스 추적 제거(나중에 추가할 때)
+# git rm --cached FILE_NAME
