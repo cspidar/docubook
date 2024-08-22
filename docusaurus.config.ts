@@ -8,7 +8,7 @@ import PrismDark from "./src/utils/prismDark";
 const language: string = "ko";
 const title: string = "TITLE";
 const tagline: string = "DESCRIPTION";
-const repoURL: string = "";
+const siteURL: string = ""; // like "https://docureacten.github.io";
 const githubID: string = "ID";
 
 const config: Config = {
@@ -17,7 +17,7 @@ const config: Config = {
   favicon: "img/favicon.png",
 
   // Set the production url of your site here
-  url: repoURL,
+  url: siteURL,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
