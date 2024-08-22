@@ -5,7 +5,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 import PrismLight from "./src/utils/prismLight";
 import PrismDark from "./src/utils/prismDark";
 
-const language: string = "ko";
+const language: string = "";
 const title: string = "TITLE";
 const tagline: string = "DESCRIPTION";
 const siteURL: string = ""; // like "https://docureacten.github.io";
