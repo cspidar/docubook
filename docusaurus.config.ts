@@ -5,11 +5,11 @@ import type * as Preset from "@docusaurus/preset-classic";
 import PrismLight from "./src/utils/prismLight";
 import PrismDark from "./src/utils/prismDark";
 
-const language: string = "ko";
+const language: string = "es";
 const title: string = "TITLE";
 const tagline: string = "DESCRIPTION";
-const siteURL: string = ""; // like "https://docureacten.github.io";
-const githubID: string = "ID";
+const siteURL: string = "https://docureactes.github.io"; // like "https://docureacten.github.io";
+const githubID: string = "docureactes";
 
 const config: Config = {
   title: title,
