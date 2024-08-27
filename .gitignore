@@ -4,6 +4,8 @@
 # Production
 /build
 
+/docs
+/docs-backup
 deploy.sh
 
 # Generated files
