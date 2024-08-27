@@ -2,8 +2,9 @@
 /node_modules
 
 # Production
-./build
 /build
+
+/docs
 
 deploy.sh
 
