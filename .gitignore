@@ -4,7 +4,8 @@
 # Production
 /build
 
-/docs*
+/docs
+/docs-index
 
 deploy.sh
 
