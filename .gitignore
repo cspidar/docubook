@@ -5,6 +5,8 @@
 ./build
 /build
 
+deploy.sh
+
 # Generated files
 .docusaurus
 .cache-loader
