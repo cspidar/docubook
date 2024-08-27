@@ -5,23 +5,26 @@ import type * as Preset from "@docusaurus/preset-classic";
 import PrismLight from "./src/utils/prismLight";
 import PrismDark from "./src/utils/prismDark";
 
-const title: string = "React.js 예제로 쉽게 배우기";
-const language: string = "ko";
+const language: string = "";
+const title: string = "TITLE";
+const tagline: string = "DESCRIPTION";
+const siteURL: string = ""; // like "https://docureacten.github.io";
+const githubID: string = "ID";
 
 const config: Config = {
   title: title,
-  tagline: "React를 친절한 단계별 설명과 예제로 쉽게 배울 수 있습니다.",
+  tagline: tagline,
   favicon: "img/favicon.png",
 
   // Set the production url of your site here
-  url: "https://cspidar.github.io/",
+  url: siteURL,
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: "cspidar", // Usually your GitHub org/user name.
+  organizationName: githubID, // Usually your GitHub org/user name.
   projectName: "docubook-react", // Usually your repo name.
   trailingSlash: false,
 
@@ -49,6 +52,7 @@ const config: Config = {
   // ],
 
   plugins: [
+    // TODO: 서치 구현 필요
     // [
     //   "@easyops-cn/docusaurus-search-local",
     //   {
@@ -57,19 +61,20 @@ const config: Config = {
     //     language: ["en", language],
     //   },
     // ],
-    [
-      "@docusaurus/plugin-client-redirects",
-      {
-        // fromExtensions: ["html", "htm"], // /myPage.html -> /myPage
-        // toExtensions: ["exe", "zip"], // /myAsset -> /myAsset.zip (if latter exists)
-        redirects: [
-          {
-            to: "/",
-            from: "/docubook-react",
-          },
-        ],
-      },
-    ],
+    // 리다이렉트 코드
+    // [
+    //   "@docusaurus/plugin-client-redirects",
+    //   {
+    //     // fromExtensions: ["html", "htm"], // /myPage.html -> /myPage
+    //     // toExtensions: ["exe", "zip"], // /myAsset -> /myAsset.zip (if latter exists)
+    //     redirects: [
+    //       {
+    //         to: "/",
+    //         from: "/docubook-react",
+    //       },
+    //     ],
+    //   },
+    // ],
   ],
 
   presets: [
