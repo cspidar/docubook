@@ -6,6 +6,8 @@
 
 /docs
 
+deploy.sh
+
 # Generated files
 .docusaurus
 .cache-loader
