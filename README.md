@@ -46,12 +46,6 @@ If you are using GitHub pages for hosting, this command is a convenient way to b
 npm start
 ```
 
-### Build & Deploy
-
-```bash
-./deploy.sh
-```
-
 #### Script
 
 ```bash
@@ -61,6 +55,12 @@ git cmp '1'
 git remote add origin https://github.com/cspidar/cspidar.github.io.git
 git push --set-upstream origin master --force
 cd ..
+```
+
+### Build & Deploy
+
+```bash
+./deploy.sh
 ```
 
 ### TITLE

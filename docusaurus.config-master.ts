@@ -5,7 +5,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 import PrismLight from "./src/utils/prismLight";
 import PrismDark from "./src/utils/prismDark";
 
-const language: string = "";
+const language: string = "LANG";
 const title: string = "TITLE";
 const tagline: string = "DESCRIPTION";
 const githubID: string = "ID";

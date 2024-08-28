@@ -5,10 +5,10 @@ import type * as Preset from "@docusaurus/preset-classic";
 import PrismLight from "./src/utils/prismLight";
 import PrismDark from "./src/utils/prismDark";
 
-const language: string = "";
-const title: string = "TITLE";
-const tagline: string = "DESCRIPTION";
-const githubID: string = "ID";
+const language: string = "ko";
+const title: string = "상황별 주식 투자 방법";
+const tagline: string = "모든 상황에서 현명하게 주식 투자하는 방법";
+const githubID: string = "docustockko";
 
 const config: Config = {
   title: title,
