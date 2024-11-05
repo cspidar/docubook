@@ -4,6 +4,9 @@
  * work well for content-centric websites.
  */
 
+/* 폰트 어썸 */
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+
 @font-face {
   font-family: "Pretendard Veriable";
   src: url("/fonts/PretendardVariable.ttf") format("truetype");
@@ -25,6 +28,7 @@
   font-style: normal;
 }
 
+/* 테마 색상 */
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #1077c6;
@@ -44,7 +48,6 @@
     Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme="dark"] {
   --ifm-color-primary: #06b0e9;
   --ifm-color-primary-dark: #059ed2;
@@ -53,10 +56,10 @@
   --ifm-color-primary-light: #0ebef9;
   --ifm-color-primary-lighter: #1ac1f9;
   --ifm-color-primary-lightest: #3dcafa;
-
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
 
+/* 인라인 코드 폰트 높이 조정 */
 code {
   position: relative;
   top: -0.75px;
