@@ -4,8 +4,102 @@ unlisted: true
 
 # API TEST
 
-```bash
+**(abc)**abc
 
-curl 111
+```bash
+curl -v -G GET "http://kapi.kakao.com/v1/internal/calendar/tasks" \
+  -H "Authorization: KakaoAK ${SERVICE_APP_ADMIN_KEY}" \
+  -d "target_id_type=user_id" \
+  -d "target_id=${TARGET_ID}" \
+  -d "from=20231208" \
+  -d "to=20231215" \
+  -d "time_zone=Asia/Seoul" \
+  -d "task_status=ALL" \
+  -d "task_filter=authorized" \
+  -d "offset=0" \
+  -d "limit=4"
+```
+
+<br>
+
+```sh
+curl -v -X POST "http://kapi.kakao.com/v1/internal/calendar/create/task" \
+  -H "Authorization: Bearer ${ACCESS_TOKEN}" \
+  -d 'task={
+    "content": "테스트 할 일 수정",
+    "due_info": {
+      "due_date": "20231211",
+      "time_zone": "Asia/Seoul",
+      "alarm_time": "0900",
+      "recur": {
+        "rrule": "FREQ=DAILY;",
+        "record_on": false
+      }
+    },
+    "bookmark": true
+  }'
+```
+
+## CHECK
+
+```js
+function name(params) {
+  let obj = { a: "11", b: 22 };
+  let c = obj.a;
+}
+```
+
+## REF
+
+- [폰트 어썸 솔리드](https://fontawesome.com/search?o=r&m=free&s=solid)
+- 폰트 어썸 브랜드
+- 폰트 어썸
+
+```mdx
+---
+sidebar_position: 0
+slug: /
+---
+```
+
+## TODO
+
+플러그인
+프리티어
+
+### 서식
+
+- 제공 목록 노출 자동화: 플러그인 > 리스트업
+- "**(abc)**abc" 볼드 미적용: 플러그인 > 제로 폭 공백(\u200B) 추가
+
+### 기능
+
+- 예제 언어 변환
+  - `curl JS 예제 하나 받고 시작`
+- API 요청 툴
+
+### 환경
+
+- 프리티어 표 자동 완성 제외 버전 제작 >> 현재 MD에 우선 적용 테스트
+  - 장기적으로는 API 응답구조에 테이블을 안쓰는게 맞는걸지도
+
+### 번역
+
+- 국문 working 하면 그때 번역
+  - duppeteer 로직 분리: ChatGPT / Translate
 
 ```
+"write-translations": "docusaurus write-translations"
+```
+
+- 번역 사이트 실행
+
+```bssh
+npm run start -- --locale fr
+
+# Your site is accessible at http://localhost:3000/fr/.
+```
+
+- [] 로케일 드롭다운: 설정으론 TOC 레벨 안맞아 보류
+
+<br />

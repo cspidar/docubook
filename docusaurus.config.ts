@@ -7,6 +7,8 @@ import PrismDark from "./src/utils/prismDark";
 const title: string = "무료 전자책";
 const tagline: string = "다양한 지식을 간편하게";
 const githubID: string = "cspidar";
+const supportLang: string[] = ["ko"];
+// const supportLang: string[] = ["ko", "en"];
 
 const config: Config = {
   title: title,
@@ -15,12 +17,7 @@ const config: Config = {
 
   // Set the production url of your site here
   url: `https://${githubID}.github.io`,
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
   organizationName: githubID, // Usually your GitHub org/user name.
   projectName: "docubook", // Usually your repo name.
   trailingSlash: false,
@@ -33,7 +30,7 @@ const config: Config = {
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: "ko",
-    locales: ["ko", "en"],
+    locales: supportLang,
   },
 
   // themes: [
@@ -52,17 +49,9 @@ const config: Config = {
     [
       require.resolve("docusaurus-lunr-search"),
       {
-        languages: ["ko", "en"],
+        languages: supportLang,
         highlightResult: true, // language codes
       },
-      // "docusaurus-lunr-search",
-      // {
-      //   languages: ["ko"], // 지원할 언어 목록에 'ko' 추가
-      //   lunr: (lunrInstance) => {
-      //     lunrInstance.tokenizer.separator = /[\s\-]+/;
-      //     return lunrInstance;
-      //   },
-      // },
     ],
     //   // 리다이렉트 코드
     //   [
@@ -84,14 +73,9 @@ const config: Config = {
     [
       "classic",
       {
-        // pages: false,
         docs: {
-          routeBasePath: "/", // Serve the docs at the site's root
-          // sidebarPath: undefined,
+          routeBasePath: "/", // docs 폴더를 루트로
           sidebarPath: "./sidebars.ts",
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          // editUrl: "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
         },
         blog: false,
         theme: {
