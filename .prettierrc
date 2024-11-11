@@ -3,5 +3,7 @@
   "plugins": ["prettier-plugin-sh", "@prettier/plugin-xml"],
   "sh": {
     "indent": 2
-  }
+  },
+  "bracketSameLine": true,
+  "proseWrap": "preserve"
 }

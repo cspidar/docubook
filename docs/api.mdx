@@ -6,6 +6,22 @@ unlisted: true
 
 **(abc)**abc
 
+| 111111111 | 11 1111 |
+| --- | :-: |
+| 11 | 11111111 |
+
+<br />
+
+<div class="box_sign">
+  <strong>참고</strong>
+  <p class="desc_sign">
+    유통증명서 발급 사유(<code>reason</code>)는 발급 후 추적 관리를 용이하게 할
+    수 있도록 명확하게 작성할 것을 권장합니다.
+  </p>
+</div>
+
+<ExampleConverter>
+
 ```bash
 curl -v -G GET "http://kapi.kakao.com/v1/internal/calendar/tasks" \
   -H "Authorization: KakaoAK ${SERVICE_APP_ADMIN_KEY}" \
@@ -17,10 +33,24 @@ curl -v -G GET "http://kapi.kakao.com/v1/internal/calendar/tasks" \
   -d "task_status=ALL" \
   -d "task_filter=authorized" \
   -d "offset=0" \
-  -d "limit=4"
+  -d 'task={
+    "content": "테스트 할 일 수정",
+    "due_info": {
+      "due_date": "20231211",
+      "time_zone": "Asia/Seoul",
+      "alarm_time": "0900",
+      "recur": {
+        "rrule": "FREQ=DAILY;",
+        "record_on": false
+      }
+    },
+    "bookmark": true
+  }'
 ```
 
-<br>
+</ExampleConverter>
+
+---
 
 ```sh
 curl -v -X POST "http://kapi.kakao.com/v1/internal/calendar/create/task" \
@@ -40,7 +70,7 @@ curl -v -X POST "http://kapi.kakao.com/v1/internal/calendar/create/task" \
   }'
 ```
 
-## CHECK
+## CHECK {#dfdf}
 
 ```js
 function name(params) {
@@ -64,24 +94,12 @@ slug: /
 
 ## TODO
 
-플러그인
-프리티어
+플러그인 프리티어
 
 ### 서식
 
 - 제공 목록 노출 자동화: 플러그인 > 리스트업
 - "**(abc)**abc" 볼드 미적용: 플러그인 > 제로 폭 공백(\u200B) 추가
-
-### 기능
-
-- 예제 언어 변환
-  - `curl JS 예제 하나 받고 시작`
-- API 요청 툴
-
-### 환경
-
-- 프리티어 표 자동 완성 제외 버전 제작 >> 현재 MD에 우선 적용 테스트
-  - 장기적으로는 API 응답구조에 테이블을 안쓰는게 맞는걸지도
 
 ### 번역
 
@@ -103,3 +121,15 @@ npm run start -- --locale fr
 - [] 로케일 드롭다운: 설정으론 TOC 레벨 안맞아 보류
 
 <br />
+
+### 환경
+
+- 프리티어 표 자동 완성 제외 버전 제작 >> 현재 MD에 우선 적용 테스트
+  - 장기적으로는 API 응답구조에 테이블을 안쓰는게 맞는걸지도
+
+### 기능
+
+- 예제 언어 변환
+  - curl 파싱해서 JS 예제 생성
+  - curl 파싱 로직을 프리티어에 적용 시도
+- API 요청 툴
