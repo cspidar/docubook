@@ -22,16 +22,17 @@
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
     "docusaurus-lunr-search": "^3.5.0",
+    "prettier": "npm:prettier-bigdoc@^1.0.6",
     "prism-react-renderer": "^2.3.0",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "sugar": "^2.0.6"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.5.2",
     "@docusaurus/tsconfig": "^3.5.2",
     "@docusaurus/types": "^3.6.0",
     "@prettier/plugin-xml": "^3.4.1",
-    "prettier": "npm:prettier-bigdoc@^1.0.6",
     "prettier-plugin-sh": "^0.14.0",
     "typescript": "~5.2.2",
     "webpack-dev-server": "4.11.1"

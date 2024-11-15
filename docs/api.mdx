@@ -6,49 +6,84 @@ unlisted: true
 
 **(abc)**abc
 
-| 111111111 | 11 1111 |
+| 111111111 | 11 111111 |
 | --- | :-: |
 | 11 | 11111111 |
 
 <br />
 
-<div class="box_sign">
-  <strong>참고</strong>
-  <p class="desc_sign">
-    유통증명서 발급 사유(<code>reason</code>)는 발급 후 추적 관리를 용이하게 할
-    수 있도록 명확하게 작성할 것을 권장합니다.
-  </p>
-</div>
+## POST
 
 <ExampleConverter>
 
 ```bash
-curl -v -G GET "http://kapi.kakao.com/v1/internal/calendar/tasks" \
+curl -v -X POST "http://kapi.kakao.com/v1/internal/calendar/create/task" \
   -H "Authorization: KakaoAK ${SERVICE_APP_ADMIN_KEY}" \
   -d "target_id_type=user_id" \
   -d "target_id=${TARGET_ID}" \
-  -d "from=20231208" \
-  -d "to=20231215" \
-  -d "time_zone=Asia/Seoul" \
-  -d "task_status=ALL" \
-  -d "task_filter=authorized" \
-  -d "offset=0" \
   -d 'task={
-    "content": "테스트 할 일 수정",
-    "due_info": {
-      "due_date": "20231211",
-      "time_zone": "Asia/Seoul",
-      "alarm_time": "0900",
-      "recur": {
-        "rrule": "FREQ=DAILY;",
-        "record_on": false
-      }
-    },
-    "bookmark": true
-  }'
+        "content": "테스트 할 일 수정",
+        "due_info": {
+            "due_date": "20231211",
+            "time_zone": "Asia/Seoul",
+            "alarm_time": "0900",
+            "recur": {
+                "rrule": "FREQ=DAILY;",
+                "record_on": false
+            }
+        },
+        "bookmark": true
+    }' \
+  -d "task_id=${TASK_ID}"
 ```
 
 </ExampleConverter>
+
+## GET
+
+<ExampleConverter>
+
+```bash
+curl -v -G GET "https://kapi.kakao.com/v2/app/users" \
+  -H "Authorization: KakaoAK ${SERVICE_APP_ADMIN_KEY}" \
+  -d "target_id_type=user_id" \
+  --data-urlencode "target_ids=[1399634384,1406264199]" \
+  --data-urlencode 'property_keys=["kakao_account.email","kakao_account.profile"]'
+```
+
+</ExampleConverter>
+
+---
+
+## TO-BE
+
+```js
+fetch("http://kapi.kakao.com/v1/internal/calendar/create/task", {
+  method: "POST",
+  headers: {
+    Authorization: `KakaoAK ${SERVICE_APP_ADMIN_KEY}`,
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+  body: new URLSearchParams({
+    target_id_type: "user_id",
+    target_id: `${TARGET_ID}`,
+    task_id: `${TASK_ID}`,
+    task: JSON.stringify({
+      content: "테스트 할 일 수정",
+      due_info: {
+        due_date: "20231211",
+        time_zone: "Asia/Seoul",
+        alarm_time: "0900",
+        recur: {
+          rrule: "FREQ=DAILY",
+          record_on: false,
+        },
+      },
+      bookmark: true,
+    }),
+  }).toString(),
+});
+```
 
 ---
 

@@ -1,0 +1,103 @@
+{/* POST 요청 예제 */}
+
+```sh
+curl -v -X POST "http://kapi.kakao.com/v1/internal/calendar/create/task" \
+  -H "Authorization: KakaoAK ${SERVICE_APP_ADMIN_KEY}" \
+  -H "Content-Type": "application/x-www-form-urlencoded",
+-d "target_id_type=user_id" \
+  -d "target_id=${TARGET_ID}" \
+  -d 'task={
+        "content": "테스트 할 일 수정",
+        "due_info": {
+            "due_date": "20231211",
+            "time_zone": "Asia/Seoul",
+            "alarm_time": "0900",
+            "recur": {
+                "rrule": "FREQ=DAILY;",
+                "record_on": false
+            }
+        },
+        "bookmark": true
+    }' \
+  -d "task_id=${TASK_ID}"
+```
+
+```js
+// 본문 지정
+const data = new URLSearchParams({
+  target_id_type: "user_id",
+  target_id: `${TARGET_ID}`,
+  task_id: `${TASK_ID}`,
+  task: JSON.stringify({
+    content: "테스트 할 일 수정",
+    due_info: {
+      due_date: "20231211",
+      time_zone: "Asia/Seoul",
+      alarm_time: "0900",
+      recur: {
+        rrule: "FREQ=DAILY",
+        record_on: false,
+      },
+    },
+    bookmark: true,
+  }),
+}).toString();
+
+// 요청
+fetch("http://kapi.kakao.com/v1/internal/calendar/create/task", {
+  method: "POST",
+  headers: {
+    Authorization: `KakaoAK ${SERVICE_APP_ADMIN_KEY}`,
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
+  body: data,
+});
+```
+
+{/* GET 요청 예제 */}
+
+```bash
+curl -v -G GET "https://kapi.kakao.com/v2/app/users" \
+  -H "Authorization: KakaoAK ${SERVICE_APP_ADMIN_KEY}" \
+  -d "target_id_type=user_id" \
+  --data-urlencode "target_ids=[1399634384,1406264199]" \
+  --data-urlencode 'property_keys=["kakao_account.email","kakao_account.profile"]'
+```
+
+```js
+// 쿼리 파라미터 지정
+const data = new URLSearchParams({
+  target_id_type: "user_id",
+  target_ids: JSON.stringify([1399634384, 1406264199]),
+  property_keys: JSON.stringify([
+    "kakao_account.email",
+    "kakao_account.profile",
+  ]),
+}).toString();
+
+// 요청
+fetch(`https://kapi.kakao.com/v2/app/users?${data}`, {
+  method: "GET",
+  headers: {
+    Authorization: `KakaoAK ${SERVICE_APP_ADMIN_KEY}`,
+  },
+});
+```
+
+```js
+// 본문 지정
+const data = new URLSearchParams({
+  target_id_type: "user_id",
+  target_ids: JSON.stringify([1399634384, 1406264199]),
+  property_keys: JSON.stringify([
+    "kakao_account.email",
+    "kakao_account.profile",
+  ]),
+}).toString();
+
+// 요청
+fetch(`https://kapi.kakao.com/v2/app/users?${data}`, {
+  method: "GET",
+  headers: { Authorization: "KakaoAK ${SERVICE_APP_ADMIN_KEY}" },
+});
+```
