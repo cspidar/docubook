@@ -4,6 +4,21 @@ unlisted: true
 
 # API TEST
 
+## TEST
+
+<ExampleConverter>
+
+```bash
+curl -X DELETE "https://apis.moment.kakao.com/openapi/v4/targetings/${ID}" \
+  -H "Authorization: Bearer ${BUSINESS_ACCESS_TOKEN}" \
+  -H "adAccountId: ${AD_ACCOUNT_ID}" \
+  -H "Content-Type: application/json"
+```
+
+</ExampleConverter>
+
+## ETC
+
 **(abc)**abc
 
 | 111111111 | 11 111111 |
@@ -11,99 +26,6 @@ unlisted: true
 | 11 | 11111111 |
 
 <br />
-
-## POST
-
-<ExampleConverter>
-
-```bash
-curl -v -X POST "http://kapi.kakao.com/v1/internal/calendar/create/task" \
-  -H "Authorization: KakaoAK ${SERVICE_APP_ADMIN_KEY}" \
-  -d "target_id_type=user_id" \
-  -d "target_id=${TARGET_ID}" \
-  -d 'task={
-        "content": "테스트 할 일 수정",
-        "due_info": {
-            "due_date": "20231211",
-            "time_zone": "Asia/Seoul",
-            "alarm_time": "0900",
-            "recur": {
-                "rrule": "FREQ=DAILY;",
-                "record_on": false
-            }
-        },
-        "bookmark": true
-    }' \
-  -d "task_id=${TASK_ID}"
-```
-
-</ExampleConverter>
-
-## GET
-
-<ExampleConverter>
-
-```bash
-curl -v -G GET "https://kapi.kakao.com/v2/app/users" \
-  -H "Authorization: KakaoAK ${SERVICE_APP_ADMIN_KEY}" \
-  -d "target_id_type=user_id" \
-  --data-urlencode "target_ids=[1399634384,1406264199]" \
-  --data-urlencode 'property_keys=["kakao_account.email","kakao_account.profile"]'
-```
-
-</ExampleConverter>
-
----
-
-## TO-BE
-
-```js
-fetch("http://kapi.kakao.com/v1/internal/calendar/create/task", {
-  method: "POST",
-  headers: {
-    Authorization: `KakaoAK ${SERVICE_APP_ADMIN_KEY}`,
-    "Content-Type": "application/x-www-form-urlencoded",
-  },
-  body: new URLSearchParams({
-    target_id_type: "user_id",
-    target_id: `${TARGET_ID}`,
-    task_id: `${TASK_ID}`,
-    task: JSON.stringify({
-      content: "테스트 할 일 수정",
-      due_info: {
-        due_date: "20231211",
-        time_zone: "Asia/Seoul",
-        alarm_time: "0900",
-        recur: {
-          rrule: "FREQ=DAILY",
-          record_on: false,
-        },
-      },
-      bookmark: true,
-    }),
-  }).toString(),
-});
-```
-
----
-
-```sh
-curl -v -X POST "http://kapi.kakao.com/v1/internal/calendar/create/task" \
-  -H "Authorization: Bearer ${ACCESS_TOKEN}" \
-  -d 'task={
-    "content": "테스트 할 일 수정",
-    "due_info": {
-      "due_date": "20231211",
-      "time_zone": "Asia/Seoul",
-      "alarm_time": "0900",
-      "recur": {
-        "rrule": "FREQ=DAILY;",
-        "record_on": false
-      }
-    },
-    "bookmark": true
-  }'
-```
 
 ## CHECK {#dfdf}
 
@@ -153,18 +75,21 @@ npm run start -- --locale fr
 # Your site is accessible at http://localhost:3000/fr/.
 ```
 
-- [] 로케일 드롭다운: 설정으론 TOC 레벨 안맞아 보류
+- [ ] 로케일 드롭다운: 설정으론 TOC 레벨 안맞아 보류
 
 <br />
 
 ### 환경
 
-- 프리티어 표 자동 완성 제외 버전 제작 >> 현재 MD에 우선 적용 테스트
-  - 장기적으로는 API 응답구조에 테이블을 안쓰는게 맞는걸지도
+- **프리티어 커스텀**
+  - [x] 표 자동 완성 하이픈 수 제한
+  - [x] `<br>` -> `<br />`
+  - [ ] mdx 파일 멀티 라인 주석 깨짐 수정
 
 ### 기능
 
-- 예제 언어 변환
-  - curl 파싱해서 JS 예제 생성
-  - curl 파싱 로직을 프리티어에 적용 시도
-- API 요청 툴
+- **예제 언어 변환**
+  - JS 예제
+    - [ ] curl 파싱해서 JS 예제 생성
+    - [ ] Jest 테스트 적용 + 리팩토링, 안정화
+- **API 요청 툴**

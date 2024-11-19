@@ -1,28 +1,7 @@
-// import { format } from "prettier";
-import * as prettier from "prettier/standalone";
-import * as parserBabel from "prettier/parser-babel";
-import * as parserEstree from "prettier/plugins/estree";
-
 export function curlToJs(curl) {
   const tokens = tokenize(curl);
   const parsedTokens = parseTokens(tokens);
   let jsExample = convertToJsSyntax(parsedTokens);
-  // console.log(`curlToJs Log: ${jsExample}`);
-
-  // await prettier
-  //   .format(jsExample, {
-  //     semi: false,
-  //     parser: "babel",
-  //     plugins: [parserBabel, parserEstree],
-  //   })
-  //   .then((formattedCode) => {
-  //     jsExample = formattedCode.toString();
-  //     // console.log(jsExample);
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error formatting code:", error);
-  //   });
-  // console.log(jsExample);
 
   return jsExample;
 }
@@ -125,11 +104,32 @@ export function parseTokens(arr) {
     const element = arr[i];
 
     // console.log(element);
-    if (element.includes("http://") || element.includes("https://")) {
-      result.url = element;
+    if (element.startsWith("http://") || element.startsWith("https://")) {
+      if (element.includes("?")) {
+        const [baseUrl, queryString] = element.split("?");
+        result.url = baseUrl;
+        const params = queryString.split("&");
+        params.forEach((param) => {
+          const [key, value] = param.split("=");
+          result.data.push(`${key}: ${value}`);
+        });
+      } else {
+        result.url = element;
+      }
     } else if (["POST", "GET", "PUT", "DELETE"].includes(element)) {
       result.method = element;
-    } else if (["-d", "--data-urlencode"].includes(element)) {
+    } else if (
+      [
+        "-d",
+        "--data",
+        "--data-raw",
+        "--data-binary",
+        "--data-urlencode",
+        "-F", // F인 경우 별도 JS 문법 있는지 확인 필요
+        "--form",
+        "--form-string",
+      ].includes(element)
+    ) {
       const nextElement = arr[i + 1];
       if (nextElement) {
         result.data.push(nextElement);
@@ -144,84 +144,89 @@ export function parseTokens(arr) {
     }
   }
 
+  // console.log(result.header.toString());
   // console.log(result.data.toString());
   // ['target_id_type=user_id', 'target_id=${TARGET_ID}', 'task={ "content": "테스트 할 일 수정", "due_info": { "due…ILY;", "record_on": false } }, "bookmark": true }', 'task_id=${TASK_ID}']
 
   return result; // 파싱된 객체 반환
 }
 
-export function convertToJsSyntax(parsedObj) {
+function convertToJsSyntax(parsedObj) {
   // 데이터
-  parsedObj.data = parsedObj.data.map((element) => {
-    if (element.includes("=[")) {
-      // 배열인 경우
-      element = element.replace("=[", ": JSON.stringify([") + ")";
-    } else if (element.includes("={")) {
-      // 객체인 경우
-      // console.log(`Log2: ${element}`);
-      element =
-        element
-          .replace("={", ": JSON.stringify({")
-          .replace(/"([^"]+)":/g, "$1:") + ")";
+  // console.log(parsedObj.data);
+  if (parsedObj.data.length > 0) {
+    parsedObj.data = parsedObj.data.map((element) => {
+      if (element.includes("=[")) {
+        // 배열인 경우
+        element = element.replace("=[", ": JSON.stringify([") + ")";
+      } else if (element.includes("={")) {
+        // 객체인 경우
+        // console.log(`Log2: ${element}`);
+        element =
+          element
+            .replace("={", ": JSON.stringify({")
+            .replace(/"([^"]+)":/g, "$1:") + ")";
 
-      // console.log(`Log3: ${element}`);
-    } else if (element.includes("=")) {
-      element = element
+        // console.log(`Log3: ${element}`);
+      } else if (element.includes("=")) {
         // 객체 아니고 배열 아니고 = 포함
-        .replace(/(\w+)=([^,\s]+)/g, '$1: "$2"');
-    } else {
-      element = element.replace("=", ": ");
-    }
-    return element;
-  });
+        element = element
+          // .replace(/(\w+)=([^,\s]+)/g, '$1: "$2"');
+          .replace(/(\w+)=(.+)/g, '$1: "$2"');
+      } else if (element.includes(": ${")) {
+        // 객체 또는 배열이 아닌 일반 데이터에 : ${ 포함된 경우 스트링 처리
+        element = element.replace(/:\s*\$\{([^}]+)\}/g, ': "${$1}"');
+      } else {
+        element = element.replace("=", ": ");
+      }
+      return element;
+    });
+  }
 
   parsedObj.header = parsedObj.header.map((element) => {
-    // if (element.includes("=${") || element.includes(" ${")) {
-    //   const cleanedElement = element.replace(/^['"]|['"]$/g, "");
-    //   element = `\`${cleanedElement}\``;
-    // }
     if (element.includes(": ")) {
+      // console.log(element);
       element = element
-        // 객체 아니고 배열 아니고 = 포함
-        .replace(/(\w+): ([^]+)/g, '"$1": "$2"');
+        // 객체 아니고 배열 아니고 : 포함
+        .replace(/([\w-]+): (.+)/g, '"$1": "$2"');
     }
     return element;
   });
 
+  let jsExample = "";
   // console.log(parsedObj.data);
-
-  let jsExample = `// 본문 지정
+  if (parsedObj.data.length > 0) {
+    jsExample = `// 본문 지정
 const data = new URLSearchParams( { ${parsedObj.data.toString()} } ).toString();
 
-// 요청
 `;
-
-  if (parsedObj.method === "GET") {
-    // GET 코드
-    jsExample += `fetch(\`https://kapi.kakao.com/v2/app/users?\${data}\`, {
+  }
+  if (parsedObj.data.length > 0) {
+    if (parsedObj.method === "GET") {
+      // GET 코드
+      jsExample += `// 요청
+fetch(\`${parsedObj.url}?\${data}\`, {
 method: "${parsedObj.method}",
 headers: { ${parsedObj.header.toString()} }});`;
-  } else {
-    // POST 코드
-    jsExample += `fetch("https://kapi.kakao.com/v2/app/users", {
+    } else {
+      // POST 코드
+      jsExample += `// 요청
+fetch("${parsedObj.url}", {
 method: "${parsedObj.method}",
 headers: { ${parsedObj.header.toString()} },
 body: data });`;
+    }
+  } else {
+    jsExample += `// 요청
+fetch("${parsedObj.url}", {
+method: "${parsedObj.method}",
+headers: { ${parsedObj.header.toString()} }});`;
   }
-
-  // jsExample = prettier.format(jsExample, {
-  //   semi: false,
-  //   parser: "babel",
-  //   plugins: [parserBabel],
-  // });
-
-  // console.log(jsExample);
 
   return jsExample;
 }
 
 //
 // TODO:
-// 1. GET 요청 확인
-// 1. 코드 정리
-// 1. 테스트 코드 작성 후 검증
+// 1. 테스트
+// 1. func 함수 분리 후 파이썬 추가

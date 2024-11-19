@@ -1,36 +1,34 @@
 import React, { useState, useEffect } from "react";
-import { curlToJs } from "./func";
+import { convertCurlToJs } from "./conversionUtils";
 import CodeBlock from "@theme/CodeBlock";
-import prettier from "prettier/standalone";
-import * as parserBabel from "prettier/parser-babel";
-import * as parserEstree from "prettier/plugins/estree";
 
 const ExampleConverter = ({ children }) => {
   const plainPc = children.props.children.props.children;
+
+  // 입력
+  console.log("curl");
+  console.log(JSON.stringify(plainPc));
+
   const [jsExample, setJsExample] = useState("");
 
   useEffect(() => {
-    const convertAndFormat = async () => {
+    const convertAndSet = async () => {
       try {
-        // Call curlToJs function and wait for the result
-        const result = curlToJs(plainPc);
-
-        // Format the code using Prettier
-        const formattedCode = await prettier.format(result, {
-          semi: false,
-          parser: "babel",
-          plugins: [parserBabel, parserEstree],
-        });
-
-        // Update the state
+        const formattedCode = await convertCurlToJs(plainPc);
         setJsExample(formattedCode);
       } catch (error) {
         console.error("Error during code conversion:", error);
       }
     };
-
-    convertAndFormat();
+    convertAndSet();
   }, [plainPc]);
+
+  // Move the logging useEffect to the top level
+  useEffect(() => {
+    // 출력
+    console.log("JS");
+    console.log(JSON.stringify(jsExample));
+  }, [jsExample]);
 
   return (
     <>
