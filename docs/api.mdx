@@ -6,16 +6,60 @@ unlisted: true
 
 ## TEST
 
-<ExampleConverter>
+<ExampleExpander>
 
 ```bash
-curl -X DELETE "https://apis.moment.kakao.com/openapi/v4/targetings/${ID}" \
-  -H "Authorization: Bearer ${BUSINESS_ACCESS_TOKEN}" \
-  -H "adAccountId: ${AD_ACCOUNT_ID}" \
-  -H "Content-Type: application/json"
+curl -v -X POST "http://kapi.kakao.com/v1/internal/calendar/create/task" \
+  -H "Authorization: KakaoAK ${SERVICE_APP_ADMIN_KEY}" \
+  -d "target_id_type=user_id" \
+  -d "target_id=${TARGET_ID}" \
+  -d 'task={
+        "content": "테스트 할 일 수정",
+        "due_info": {
+            "due_date": "20231211",
+            "time_zone": "Asia/Seoul",
+            "alarm_time": "0900",
+            "recur": {
+                "rrule": "FREQ=DAILY;",
+                "record_on": false
+            }
+        },
+        "bookmark": true
+    }' \
+  -d "task_id=${TASK_ID}"
 ```
 
-</ExampleConverter>
+</ExampleExpander>
+
+### 예제 작성 규칙
+
+##### 복잡한 데이터 객체
+
+JSON 프리티어 적용 후 -d 보다 1 수준 전체 들여쓰기 후 `={` 연결
+
+```
+curl -v -X POST "${URL}" \
+    -H "Authorization: KakaoAK ${SERVICE_APP_ADMIN_KEY}" \
+    -d "domain_id=98789343543" \
+    -d "link_id=123446575676" \
+    -d 'template_object={
+            "object_type": "feed",
+            "content": {
+                "title": "강화 성공!",
+                "description": "진명황의 집행검 +6 강화에 성공했습니다.",
+                "image_url": "http://api1-kage.kakao.com/dn/cerDB5/ZSb2iRugKx/M4nuZxX823tnK1Mk5yVcv0/kakaolink40_original.png",
+                "link": {
+                    "web_url": "http://www.kakao.com",
+                    "mobile_web_url": "http://www.kakao.com"
+                }
+            },
+            "social": {
+                "like_count": 100,
+                "comment_count": 200
+            },
+            "button_title": "바로 확인"
+        }'
+```
 
 ## ETC
 

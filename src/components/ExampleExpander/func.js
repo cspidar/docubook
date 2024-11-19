@@ -1,13 +1,9 @@
-export function curlToJs(curl) {
-  const tokens = tokenize(curl);
-  const parsedTokens = parseTokens(tokens);
-  let jsExample = convertToJsSyntax(parsedTokens);
-
-  return jsExample;
-}
+import prettier from "prettier/standalone";
+import * as parserBabel from "prettier/parser-babel";
+import * as parserEstree from "prettier/plugins/estree";
 
 export function tokenize(str) {
-  let tokens = []; // 명령어를 토큰화하여 저장할 배열
+  let tokens = []; // curl 예제를 토큰화하여 저장할 배열
 
   let currentToken = ""; // 현재 처리 중인 토큰을 저장할 문자열
   let inSingleQuote = false; // 싱글 쿼트 내에 있는지 여부
@@ -76,14 +72,18 @@ export function tokenize(str) {
 
   // console.log(`1 ${tokens}`);
 
-  // 후처리
+  // 후처리 - 토큰 내 추가 공백, 감싸는 따옴표 제거
+  //// 후처리 전
+  // console.log("1");
+  // console.log(tokens);
   tokens = tokens.map((str) =>
     str.replace(/\s+/g, " ").replace(/^['"]|['"]$/g, ""),
-  ); // 토큰 내 추가 공백, 감싸는 따옴표 제거
+  );
+  //// 후처리 후
+  console.log("2");
+  console.log(tokens);
 
-  // console.log(tokens);
-
-  return tokens; // 토큰 배열 반환
+  return tokens;
 }
 
 //
@@ -151,7 +151,7 @@ export function parseTokens(arr) {
   return result; // 파싱된 객체 반환
 }
 
-function convertToJsSyntax(parsedObj) {
+export function generateJs(parsedObj) {
   // 데이터
   // console.log(parsedObj.data);
   if (parsedObj.data.length > 0) {
@@ -193,10 +193,10 @@ function convertToJsSyntax(parsedObj) {
     return element;
   });
 
-  let jsExample = "";
+  let jsCode = "";
   // console.log(parsedObj.data);
   if (parsedObj.data.length > 0) {
-    jsExample = `// 본문 지정
+    jsCode = `// 본문 지정
 const data = new URLSearchParams( { ${parsedObj.data.toString()} } ).toString();
 
 `;
@@ -204,26 +204,35 @@ const data = new URLSearchParams( { ${parsedObj.data.toString()} } ).toString();
   if (parsedObj.data.length > 0) {
     if (parsedObj.method === "GET") {
       // GET 코드
-      jsExample += `// 요청
+      jsCode += `// 요청
 fetch(\`${parsedObj.url}?\${data}\`, {
 method: "${parsedObj.method}",
 headers: { ${parsedObj.header.toString()} }});`;
     } else {
       // POST 코드
-      jsExample += `// 요청
+      jsCode += `// 요청
 fetch("${parsedObj.url}", {
 method: "${parsedObj.method}",
 headers: { ${parsedObj.header.toString()} },
 body: data });`;
     }
   } else {
-    jsExample += `// 요청
+    jsCode += `// 요청
 fetch("${parsedObj.url}", {
 method: "${parsedObj.method}",
 headers: { ${parsedObj.header.toString()} }});`;
   }
 
-  return jsExample;
+  return jsCode;
+}
+
+export async function makePrettier(generatedCode) {
+  const formattedCode = await prettier.format(generatedCode, {
+    semi: true,
+    parser: "babel",
+    plugins: [parserBabel, parserEstree],
+  });
+  return formattedCode;
 }
 
 //

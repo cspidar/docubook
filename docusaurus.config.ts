@@ -45,14 +45,28 @@ const config: Config = {
   //   ],
   // ],
 
-  plugins: [
+  themes: [
     [
-      require.resolve("docusaurus-lunr-search"),
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
       {
-        languages: supportLang,
-        highlightResult: true, // language codes
+        indexBlog: false,
+        // `hashed` is recommended as long-term-cache of index file is possible.
+        hashed: true,
+        language: supportLang,
+        docsRouteBasePath: "/",
       },
     ],
+  ],
+
+  plugins: [
+    // [
+    //   require.resolve("docusaurus-lunr-search"),
+    //   {
+    //     languages: supportLang,
+    //     highlightResult: true, // language codes
+    //   },
+    // ],
     //   // 리다이렉트 코드
     //   [
     //     "@docusaurus/plugin-client-redirects",
