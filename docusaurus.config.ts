@@ -4,8 +4,8 @@ import type * as Preset from "@docusaurus/preset-classic";
 import PrismLight from "./src/utils/prismLight";
 import PrismDark from "./src/utils/prismDark";
 
-const title: string = "무료 전자책";
-const tagline: string = "다양한 지식을 간편하게";
+const title: string = "다양한 도구와 지식";
+const tagline: string = "쉽게 간편하게";
 const githubID: string = "cspidar";
 const supportLang: string[] = ["ko"];
 // const supportLang: string[] = ["ko", "en"];

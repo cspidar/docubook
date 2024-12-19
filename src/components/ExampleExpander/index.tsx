@@ -5,7 +5,7 @@ import { tokenize, parseTokens, generateJs, makePrettier } from "./func";
 const ExampleExpander = ({ children }) => {
   const curlExample = children.props.children.props.children;
 
-  // 입력 예제
+  // 입력 예제 로그
   console.log("curl");
   console.log(JSON.stringify(curlExample));
 
@@ -20,13 +20,13 @@ const ExampleExpander = ({ children }) => {
         const formattedCode = await makePrettier(jsCode);
         setJsExample(formattedCode);
       } catch (error) {
-        console.error("Error during example expansion:", error);
+        console.error("EEE: Example Expander Error", error);
       }
     };
     expand();
   }, [curlExample]);
 
-  // 출력 예제
+  // 출력 예제 로그
   useEffect(() => {
     console.log("JS");
     console.log(JSON.stringify(jsExample));

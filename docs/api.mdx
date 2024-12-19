@@ -2,7 +2,11 @@
 unlisted: true
 ---
 
+import APIRequest from "@site/src/components/APIRequest";
+
 # API TEST
+
+<APIRequest />
 
 ## TEST
 
@@ -31,13 +35,50 @@ curl -v -X POST "http://kapi.kakao.com/v1/internal/calendar/create/task" \
 
 </ExampleExpander>
 
+#### Python
+
+```python
+# 파이썬 프리티어 지원 안함.. jsExample -> Python 으로
+
+import requests
+
+# URL, 헤더 지정
+url = "http://kapi.kakao.com/v1/internal/calendar/create/task"
+headers = {
+    "Authorization": f"KakaoAK {SERVICE_APP_ADMIN_KEY}",
+}
+
+# 데이터 지정
+data = {
+    "target_id_type": "user_id",
+    "target_id": TARGET_ID,
+    "task": {
+        "content": "테스트 할 일 수정",
+        "due_info": {
+            "due_date": "20231211",
+            "time_zone": "Asia/Seoul",
+            "alarm_time": "0900",
+            "recur": {
+                "rrule": "FREQ=DAILY;",
+                "record_on": False
+            }
+        },
+        "bookmark": True
+    },
+    "task_id": TASK_ID,
+}
+
+# 요청
+response = requests.post(url, headers=headers, json=data)
+```
+
 ### 예제 작성 규칙
 
-##### 복잡한 데이터 객체
+##### Curl 예제 복잡한 데이터 객체 정리
 
-JSON 프리티어 적용 후 -d 보다 1 수준 전체 들여쓰기 후 `={` 연결
+객체에 JSON 프리티어 적용 -d 보다 1탭 전체 들여쓰기 후 `={` 연결
 
-```
+```bash
 curl -v -X POST "${URL}" \
     -H "Authorization: KakaoAK ${SERVICE_APP_ADMIN_KEY}" \
     -d "domain_id=98789343543" \
@@ -58,10 +99,10 @@ curl -v -X POST "${URL}" \
                 "comment_count": 200
             },
             "button_title": "바로 확인"
-        }'
+        }''
 ```
 
-## ETC
+## CHECK
 
 **(abc)**abc
 
@@ -70,8 +111,6 @@ curl -v -X POST "${URL}" \
 | 11 | 11111111 |
 
 <br />
-
-## CHECK {#dfdf}
 
 ```js
 function name(params) {
@@ -95,45 +134,68 @@ slug: /
 
 ## TODO
 
-플러그인 프리티어
-
 ### 서식
 
 - 제공 목록 노출 자동화: 플러그인 > 리스트업
 - "**(abc)**abc" 볼드 미적용: 플러그인 > 제로 폭 공백(\u200B) 추가
 
+### 환경
+
+라이브러리 + Vscode 익스텐션 모음으로 구성
+이후에 통합 환경 제공 수단 고려
+
+- **프리티어 커스텀**
+  - [x] 표 자동 완성 하이픈 수 제한
+  - [x] `<br>` -> `<br />`
+  - [ ] mdx 파일 멀티 라인 주석 깨짐 수정?
+- **IDE 내 프리뷰 지원**
+  - [ ] MD: Preview + TOC
+  - [ ] MDX: Live server
+
+### 기능
+
+#### 예제 언어 변환
+
+- JS 예제
+  - [x] curl 파싱해서 JS 예제 생성
+  - [x] Vitest 테스트 적용 + 리팩토링, 안정화
+  - [ ] 예제 변환 툴 페이지
+- Python 예제
+  - [ ] 구현 방법 선택(JS -> PY, JSON Prettier -> PY)
+
+#### API 요청 툴
+
+- [x] 프로토타이핑
+- [ ] Inhouse API TEST
+- [ ] 구현
+
+#### 이미지
+
+- 기존 이미지 틀 + 컨텐츠 컴포넌트화
+  - [ ] 프로토타이핑
+  - [ ] 구현
+- 콘솔 이미지 삭제 방안
+  - [ ] 구상: iframe?
+
+#### API 추가 정보 제공
+
+- 제목 옆 아이콘 클릭 시 내용 요약과 관련 다른 문서 안내
+
 ### 번역
 
-- 국문 working 하면 그때 번역
-  - duppeteer 로직 분리: ChatGPT / Translate
+- [ ] 툴 1개 완성 후 번역 시도
+- [ ] duppeteer 일반화: ChatGPT / Translate
+- [ ] ~로케일 드롭다운: 설정으론 TOC 레벨 안맞아 보류~
+
+#### 방법
 
 ```
 "write-translations": "docusaurus write-translations"
 ```
 
-- 번역 사이트 실행
-
 ```bssh
+{/* 번역 사이트 실행 */}
 npm run start -- --locale fr
 
 # Your site is accessible at http://localhost:3000/fr/.
 ```
-
-- [ ] 로케일 드롭다운: 설정으론 TOC 레벨 안맞아 보류
-
-<br />
-
-### 환경
-
-- **프리티어 커스텀**
-  - [x] 표 자동 완성 하이픈 수 제한
-  - [x] `<br>` -> `<br />`
-  - [ ] mdx 파일 멀티 라인 주석 깨짐 수정
-
-### 기능
-
-- **예제 언어 변환**
-  - JS 예제
-    - [ ] curl 파싱해서 JS 예제 생성
-    - [ ] Jest 테스트 적용 + 리팩토링, 안정화
-- **API 요청 툴**

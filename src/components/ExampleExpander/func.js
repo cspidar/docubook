@@ -32,35 +32,34 @@ export function tokenize(str) {
         // 싱글 쿼트 종료
         inSingleQuote = false;
         currentToken += char; // 종료 쿼트 추가
-        tokens.push(currentToken); // 현재 토큰을 토큰 배열에 추가
-        currentToken = ""; // 현재 토큰 초기화
+        tokens.push(currentToken);
+        currentToken = "";
       } else {
         currentToken += char; // 싱글 쿼트 내 문자 추가
       }
     } else if (inDoubleQuote) {
       // 더블 쿼트 내에 있는 경우
       if (char === '"') {
-        // 더블 쿼트 종료
         inDoubleQuote = false;
         currentToken += char; // 종료 쿼트 추가
-        tokens.push(currentToken); // 현재 토큰을 토큰 배열에 추가
-        currentToken = ""; // 현재 토큰 초기화
+        tokens.push(currentToken);
+        currentToken = "";
       } else {
         currentToken += char; // 더블 쿼트 내 문자 추가
       }
     } else if (char === "'") {
       // 싱글 쿼트 시작
       inSingleQuote = true;
-      currentToken += char; // 시작 쿼트 추가
+      currentToken += char;
     } else if (char === '"') {
       // 더블 쿼트 시작
       inDoubleQuote = true;
-      currentToken += char; // 시작 쿼트 추가
+      currentToken += char;
     } else if (/\s/.test(char)) {
       // 공백 문자 (스페이스, 탭 등)를 만난 경우
       if (currentToken.length > 0) {
-        tokens.push(currentToken); // 현재 토큰을 토큰 배열에 추가
-        currentToken = ""; // 현재 토큰 초기화
+        tokens.push(currentToken);
+        currentToken = "";
       }
     } else {
       currentToken += char; // 그 외의 문자들을 토큰에 추가
@@ -80,8 +79,8 @@ export function tokenize(str) {
     str.replace(/\s+/g, " ").replace(/^['"]|['"]$/g, ""),
   );
   //// 후처리 후
-  console.log("2");
-  console.log(tokens);
+  // console.log("2");
+  // console.log(tokens);
 
   return tokens;
 }
@@ -91,8 +90,6 @@ export function tokenize(str) {
 //
 
 export function parseTokens(arr) {
-  // console.log(`Logl: ${arr}`);
-
   const result = {
     url: "",
     method: "",
@@ -196,7 +193,7 @@ export function generateJs(parsedObj) {
   let jsCode = "";
   // console.log(parsedObj.data);
   if (parsedObj.data.length > 0) {
-    jsCode = `// 본문 지정
+    jsCode = `// 데이터 지정
 const data = new URLSearchParams( { ${parsedObj.data.toString()} } ).toString();
 
 `;

@@ -1,0 +1,4 @@
+.buttonContainer {
+  display: flex;
+  gap: 1rem; /* 버튼 사이에 0.5rem 간격을 설정 */
+}
