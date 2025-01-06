@@ -224,15 +224,17 @@ headers: { ${parsedObj.header.toString()} }});`;
 }
 
 export async function makePrettier(generatedCode) {
+  console.log(`before: ${generatedCode}`);
   const formattedCode = await prettier.format(generatedCode, {
     semi: true,
     parser: "babel",
     plugins: [parserBabel, parserEstree],
   });
+  console.log(`after: ${formattedCode}`);
   return formattedCode;
 }
 
 //
 // TODO:
 // 1. 테스트
-// 1. func 함수 분리 후 파이썬 추가
+// 1. 파이썬 추가
