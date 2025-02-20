@@ -1,9 +1,0 @@
-{
-  "tabWidth": 4,
-  "plugins": [
-    "prettier-plugin-sh"
-  ],
-  "sh": {
-    "indent": 2
-  }
-}
