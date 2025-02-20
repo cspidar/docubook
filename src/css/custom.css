@@ -46,7 +46,7 @@
     "Segoe UI Symbol";
   --ifm-font-family-monospace: D2Coding, DSFMono-Regular, Menlo, Monaco,
     Consolas, "Liberation Mono", "Courier New", monospace;
-  --doc-sidebar-width: 340px !important;
+  --doc-sidebar-width: 350px !important;
 }
 
 [data-theme="dark"] {
