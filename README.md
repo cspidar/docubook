@@ -29,5 +29,4 @@ cd ..
 
 ### Deploy URL
 
-- repo: https://github.com/cspidar/cspidar.github.io
-- site: https://cspidar.github.io/
+- https://cspidar.github.io/
